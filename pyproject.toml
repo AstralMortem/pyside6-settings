@@ -1,0 +1,101 @@
+[project]
+name = "pyside6-settings"
+version = "1.0.0"
+description = "Automatic UI generation for PySide6 settings from Pydantic models"
+authors = [
+    {name = "Vladyslav Chaliuk",email = "chaliukvladyslav@gmail.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+keywords = [
+    "pyside6",
+    "qt",
+    "settings",
+    "configuration",
+    "pydantic",
+    "ui",
+    "forms",
+    "gui"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: User Interfaces",
+    "Topic :: Software Development :: Widget Sets",
+    "Framework :: Pydantic",
+    "Framework :: Pydantic :: 2",
+]
+requires-python = ">=3.10, <3.14"
+dependencies = [
+    "pyside6 (>=6.10.0,<7.0.0)",
+    "pydantic (>=2.12.4,<3.0.0)",
+    
+    
+]
+
+[project.optional-dependencies]
+# Optional dependencies for different file format loaders
+yaml = [
+    "pyyaml (>=6.0.3,<7.0.0)"
+]
+toml = [
+    "toml (>=0.10.2,<0.11.0)",
+]
+# All file format support
+all = [
+    "pyside6-settings[yaml,toml]",
+]
+
+[project.urls]
+Homepage = "https://github.com/AstralMortem/pyside6-settings"
+Repository = "https://github.com/AstralMortem/pyside6-settings"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.14.3"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.4.2"
+
+
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+
+
+[tool.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.lint.isort]
+
+known-first-party = ["pyside6_settings"]
+
+[tool.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/*" = ["ARG", "S101"]
