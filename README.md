@@ -319,7 +319,7 @@ hidden_field: str = Field(
 from pathlib import Path
 from typing import List, Optional
 from pydantic import Field
-from pyside6_settings import BaseSettings, WidgetMetadata
+from pyside6_settings import BaseSettings, Field
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton
 
 class EditorSettings(BaseSettings):
@@ -408,6 +408,8 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+![gui](./example/ui.png)
 
 ## API Reference
 

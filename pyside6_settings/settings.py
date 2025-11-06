@@ -62,7 +62,7 @@ class BaseSettings(BaseModel):
         if config_loader is None:
             raise Exception(
                 f"Config loader for .{config_file.suffix} format, does not exist,"
-                f" available file formats: *.{'*.,'.join(DEFAULT_LOADERS.keys())} "
+                f" available file formats: {','.join(DEFAULT_LOADERS.keys())} "
             )
 
         # Create instance of config loader

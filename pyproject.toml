@@ -50,7 +50,8 @@ toml = [
 ]
 # All file format support
 all = [
-    "pyside6-settings[yaml,toml]",
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "toml (>=0.10.2,<0.11.0)",
 ]
 
 [project.urls]

@@ -10,4 +10,4 @@ class JSONLoader(BaseConfigLoader):
 
     def save(self, data: Dict[str, Any]):
         with open(self.config_file, "w") as f:
-            json.dump(data, f)
+            json.dump(data, f, indent=2)

@@ -6,8 +6,8 @@ from typing import Dict, Type
 
 
 DEFAULT_LOADERS: Dict[str, Type[BaseConfigLoader]] = {
-    "json": JSONLoader,
-    "toml": TOMLLoader,
-    "yaml": YAMLLoader,
-    "yml": YAMLLoader,
+    ".json": JSONLoader,
+    ".toml": TOMLLoader,
+    ".yaml": YAMLLoader,
+    ".yml": YAMLLoader,
 }

@@ -65,6 +65,7 @@ class PathBrowseWidget(QWidget):
 
     def _on_path_changed(self, text: Path):
         """Handle path text change"""
+        text = Path(text)
         if self._validate_on_change:
             is_valid = self.validate_path(text)
             self._update_validation_style(is_valid)
