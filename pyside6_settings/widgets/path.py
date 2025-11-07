@@ -108,9 +108,8 @@ class PathBrowseWidget(QWidget):
                 self, self._dialog_title, str(start_dir), self._file_filter
             )
 
-        selected_path = Path(selected_path)
-
         if selected_path:
+            selected_path = Path(selected_path)
             self.set_path(selected_path)
             self.path_selected.emit(selected_path)
 
