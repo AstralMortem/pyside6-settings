@@ -1,6 +1,6 @@
 [project]
 name = "pyside6-settings"
-version = "1.0.0"
+version = "1.0.1"
 description = "Automatic UI generation for PySide6 settings from Pydantic models"
 authors = [
     {name = "Vladyslav Chaliuk",email = "chaliukvladyslav@gmail.com"}
