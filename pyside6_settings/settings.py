@@ -57,7 +57,7 @@ class BaseSettings(BaseModel):
         super().__init__(**data)
 
     @classmethod
-    def load(cls, config_file: str | Path) -> Self:
+    def load(cls, config_file: str | Path, auto_create: bool = False) -> Self:
         config_file = Path(config_file)
         config_loader = DEFAULT_LOADERS.get(config_file.suffix, None)
         if config_loader is None:
@@ -79,6 +79,11 @@ class BaseSettings(BaseModel):
         instance = cls(**data)
         instance._config_file = config_file
         instance._config_loader = config_loader
+
+        # If True, create config file with default values first time
+        if auto_create and not config_file.exists():
+            instance._save_settings()
+
 
         return instance
 

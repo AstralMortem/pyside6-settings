@@ -60,7 +60,7 @@ def main():
     app = QApplication([])
     
     # Load settings
-    settings = EditorSettings.load("editor_config.json")
+    settings = EditorSettings.load("editor_config.json", True)
     
     # Create main window
     window = QMainWindow()
