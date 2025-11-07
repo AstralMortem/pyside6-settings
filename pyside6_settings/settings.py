@@ -24,6 +24,7 @@ from PySide6.QtWidgets import (
     QFormLayout,
     QGroupBox,
     QVBoxLayout,
+    QScrollArea
 )
 from PySide6.QtCore import Signal, QObject
 from .fields import WidgetMetadata
@@ -360,7 +361,11 @@ class BaseSettings(BaseModel):
             group_box = self._create_groupbox_for_group(group_name, groups[group_name])
             main_layout.addWidget(group_box)
         main_layout.addStretch()
-        return main_widget
+
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(main_widget)
+        return scroll_area
 
     def _create_groupbox_for_group(
         self, group_name: str, fields: List[Tuple[str, WidgetMetadata]], group_title: Optional[str] = None
