@@ -325,7 +325,7 @@ class BaseSettings(BaseModel):
 
         return widget
 
-    def get_group(self, group_name: str) -> QGroupBox:
+    def get_group(self, group_name: str, group_title: Optional[str] = None) -> QGroupBox:
         fields = []
 
         # Get widget metadata by group
@@ -337,9 +337,9 @@ class BaseSettings(BaseModel):
         if len(fields) == 0:
             raise ValueError(f"No such group: {group_name}")
 
-        return self._create_groupbox_for_group(group_name, fields)
+        return self._create_groupbox_for_group(group_name, fields, group_title)
 
-    def create_form(self, parent: QWidget | None = None) -> QWidget:
+    def create_form(self, parent: Optional[QWidget] = None) -> QWidget:
         """Create PySide6 UI with form layout and group boxes."""
         main_widget = QWidget(parent)
         main_widget.resize(600, 400)
@@ -363,10 +363,10 @@ class BaseSettings(BaseModel):
         return main_widget
 
     def _create_groupbox_for_group(
-        self, group_name: str, fields: List[Tuple[str, WidgetMetadata]]
+        self, group_name: str, fields: List[Tuple[str, WidgetMetadata]], group_title: Optional[str] = None
     ):
         """Helper to create groupbox from field in same group"""
-        group_box = QGroupBox(group_name)
+        group_box = QGroupBox(group_title or group_name.replace("_", " ").title())
         group_layout = QFormLayout(group_box)
 
         for field_name, widget_info in fields:

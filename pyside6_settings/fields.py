@@ -3,7 +3,7 @@ from pydantic_core import PydanticUndefined
 from pydantic import BaseModel, ConfigDict
 from typing import Any, Optional, Literal
 
-DEFAULT_GROUP = "General"
+_DEFAULT_GROUP = "general"
 
 _WIDGET_TYPES = Literal[
     "hidden",
@@ -23,7 +23,7 @@ class WidgetMetadata(BaseModel):
 
     title: Optional[str] = PydanticField(default=None)
     description: Optional[str] = PydanticField(default=None)
-    group: str = PydanticField(default=DEFAULT_GROUP)
+    group: str = PydanticField(default=_DEFAULT_GROUP)
     widget: Optional[_WIDGET_TYPES] = PydanticField(default=None)
     choices: Optional[list] = PydanticField(default=None)  # Used by QComboBox
     fs_mode: Optional[_FS_MODE] = PydanticField(default=None)  # User by Path
@@ -35,7 +35,7 @@ def Field(
     *,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    group: str = DEFAULT_GROUP,
+    group: str = _DEFAULT_GROUP,
     widget: Optional[_WIDGET_TYPES] = None,
     choices: Optional[list] = None,
     fs_mode: Optional[_FS_MODE] = None,

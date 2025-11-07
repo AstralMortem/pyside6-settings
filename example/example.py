@@ -9,14 +9,12 @@ class EditorSettings(BaseSettings):
     window_title: str = Field(
         default="My Editor",
         title="Window Title",
-        group="General"
     )
     
     auto_save: bool = Field(
         default=True,
         title="Auto Save",
         description="Automatically save files",
-        group="General"
     )
     
     # Editor Settings
@@ -24,7 +22,7 @@ class EditorSettings(BaseSettings):
         default="Monospace",
         title="Font Family",
         choices=["Monospace", "Arial", "Times New Roman"],
-        group="Editor"
+        group="editor"
     )
     
     font_size: int = Field(
@@ -32,7 +30,7 @@ class EditorSettings(BaseSettings):
         ge=8,
         le=32,
         title="Font Size",
-        group="Editor"
+        group="editor"
     )
     
     tab_size: int = Field(
@@ -40,7 +38,7 @@ class EditorSettings(BaseSettings):
         ge=1,
         le=8,
         title="Tab Size",
-        group="Editor"
+        group="editor"
     )
     
     # Paths
@@ -48,14 +46,14 @@ class EditorSettings(BaseSettings):
         default=Path.home(),
         title="Workspace Directory",
         fs_mode="folder",
-        group="Paths"
+        group="paths"
     )
     
     recent_files: List[str] = Field(
         default_factory=list,
         title="Recent Files",
         widget="tags",
-        group="Paths"
+        group="paths"
     )
 
 def main():
@@ -84,6 +82,7 @@ def main():
     window.setCentralWidget(central)
     window.resize(600, 500)
     window.show()
+
     
     app.exec()
 
