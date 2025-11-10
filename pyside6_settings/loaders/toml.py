@@ -5,8 +5,9 @@ import toml
 
 class TOMLLoader(BaseConfigLoader):
     def load(self) -> Dict[str, Any]:
-        return self.ungroup_data(toml.load(self.config_file))
+        with open(self.config_file, "r", encoding="utf-8") as f:
+            return self.ungroup_data(toml.load(f))
 
     def save(self, data: Dict[str, Any]):
-        with open(self.config_file, "w") as f:
+        with open(self.config_file, "w", encoding="utf-8") as f:
             toml.dump(data, f)
