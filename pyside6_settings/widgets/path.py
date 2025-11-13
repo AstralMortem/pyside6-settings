@@ -43,6 +43,7 @@ class PathBrowseWidget(QWidget):
 
         # Path line edit
         self.path_edit = QLineEdit()
+        self.path_edit.setObjectName("#pathEditLabel")
         self.path_edit.setPlaceholderText(self._get_placeholder())
         self.path_edit.textChanged.connect(self._on_path_changed)
         self.path_edit.editingFinished.connect(self._on_editing_finished)
@@ -110,17 +111,19 @@ class PathBrowseWidget(QWidget):
 
         if selected_path:
             selected_path = Path(selected_path)
+            self._update_validation_style(self.validate_path(selected_path))
             self.set_path(selected_path)
             self.path_selected.emit(selected_path)
 
     def _update_validation_style(self, is_valid):
+        pass
         """Update line edit style based on validation"""
         if not self.path_edit.text():
             # Empty - no style
-            self.path_edit.setStyleSheet("")
+            pass
         elif is_valid:
             # Valid - subtle green border
-            self.path_edit.setStyleSheet("QLineEdit { border: 1px solid #4CAF50; }")
+            self.setStyleSheet("QLineEdit { border: 1px solid #4CAF50; }")
         else:
             # Invalid - subtle red border
             self.path_edit.setStyleSheet("QLineEdit { border: 1px solid #F44336; }")

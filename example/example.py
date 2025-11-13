@@ -56,6 +56,7 @@ class EditorSettings(BaseSettings):
         group="paths"
     )
 
+
 def main():
     app = QApplication([])
     

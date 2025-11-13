@@ -7,9 +7,10 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QLineEdit,
     QSizePolicy,
+    QScrollArea
 )
 from PySide6.QtCore import Signal, Qt
-# from PySide6.QtGui import
+from PySide6.QtGui import QIcon
 
 
 class TagWidget(QFrame):
@@ -23,18 +24,9 @@ class TagWidget(QFrame):
         self._setup_ui()
 
     def _setup_ui(self):
-        # Frame styling
-        self.setStyleSheet("""
-            QFrame {
-                background-color: palette(button);
-                border: 1px solid palette(mid);
-                border-radius: 3px;
-                padding: 2px 4px;
-            }
-        """)
-
+        self.setFrameShape(QFrame.Shape.StyledPanel)
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(4, 2, 4, 2)
+        layout.setContentsMargins(8, 2, 8, 2)
         layout.setSpacing(4)
 
         # Tag label
@@ -42,7 +34,9 @@ class TagWidget(QFrame):
         layout.addWidget(self.label)
 
         # Remove button
-        self.remove_btn = QPushButton("×")
+        self.remove_btn = QPushButton()
+        self.remove_btn.setIcon(QIcon.fromTheme(QIcon.ThemeIcon.WindowClose))
+        
         self.remove_btn.setFixedSize(16, 16)
         self.remove_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.remove_btn.setFlat(True)
@@ -89,7 +83,18 @@ class TagInputWidget(QWidget):
         self.tags_layout.setSpacing(4)
         self.tags_layout.addStretch()
 
-        container_layout.addWidget(self.tags_widget)
+        # self.tags_widget.setWidgetResizable(True)
+        self.tags_widget.setLayout(self.tags_layout)
+        self.scroll_bar = QScrollArea()
+        self.scroll_bar.setFixedHeight(40)
+        self.scroll_bar.setWidgetResizable(True)
+        self.scroll_bar.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+        self.scroll_bar.setWidget(self.tags_widget)
+
+
+        container_layout.addWidget(self.scroll_bar)
+
 
         # Input line
         self.input_line = QLineEdit()
@@ -107,6 +112,12 @@ class TagInputWidget(QWidget):
         if text:
             self.add_tag(text)
             self.input_line.clear()
+
+    def _check_scrollbar(self):
+        if not self._tags:
+            self.scroll_bar.setHidden(True)
+        else:
+            self.scroll_bar.setHidden(False)
 
     def add_tag(self, text):
         """Add a tag to the widget"""
@@ -127,7 +138,7 @@ class TagInputWidget(QWidget):
         # Emit signals
         self.tag_added.emit(text)
         self.tags_changed.emit(self._tags.copy())
-
+        self._check_scrollbar()
         return True
 
     def _on_tag_removed(self, text):
@@ -144,6 +155,7 @@ class TagInputWidget(QWidget):
             # Emit signals
             self.tag_removed.emit(text)
             self.tags_changed.emit(self._tags.copy())
+        self._check_scrollbar()
 
     def remove_tag(self, text):
         """Remove a tag by text"""
@@ -153,6 +165,7 @@ class TagInputWidget(QWidget):
         """Remove all tags"""
         for tag_widget in self._tag_widgets[:]:
             tag_widget.removed.emit(tag_widget.get_text())
+        self.scroll_bar.setHidden(True)
 
     def get_tags(self):
         """Get list of current tags"""

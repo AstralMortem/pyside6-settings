@@ -1,0 +1,15 @@
+{
+  "general": {
+    "window_title": "My Editor",
+    "auto_save": true
+  },
+  "editor": {
+    "font_family": "Monospace",
+    "font_size": 12,
+    "tab_size": 4
+  },
+  "paths": {
+    "workspace": "@path /home/senpai",
+    "recent_files": []
+  }
+}
